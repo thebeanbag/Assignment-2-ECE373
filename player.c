@@ -68,7 +68,8 @@ void print_book(struct player* target) {
 }
 
 char check_add_book(struct player* target){
-
+  
+  
 }
 
 int search(struct player* target, char rank){
@@ -77,7 +78,7 @@ int search(struct player* target, char rank){
   temp = target;
   while(temp.hand.top != NULL){
  
-    if(temp.hand.top.rank[0] = rank)
+    if(temp.hand.top.rank = rank)
       return 1;
     temp.hand.top = temp.hand.next;
   }
