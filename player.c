@@ -19,8 +19,8 @@ int add_card(struct player* target, struct card* new_card){
 
 int remove_card(struct player* target, struct card* old_card){
 
-  struct linked_list* iterator = target.hand;
-  struct linked_list* previous = NULL; 
+  struct player* iterator = target.hand;
+  struct player* previous = NULL; 
  
 
    if (iterator == NULL) { return -1; } /* Return false; list is empty */
@@ -47,43 +47,67 @@ int remove_card(struct player* target, struct card* old_card){
   
 }
 
-char check_add_book(struct player* target){
+void print_hand(struct player* target) {
+     struct player* temp;
 
+     temp = target;
+     while (temp != NULL) {
+       printf("Player 1's Hand -  %d", temp.hand.top);
+       temp = temp.hand.next;
+     }
+
+}
+
+void print_book(struct player* target) {
   struct player* temp;
   temp = target;
-  int book=0;
-  
-  for(int i=0;i<=10;i++){
-    //switch between each of the suits
-    while(temp.hand.top != null){
-      if(temp.hand.top.rank[C][i]!=NULL)
-	book++;
-      temp.hand.top = temp.hand.next;
-    }
-    if(book==4){
-      //remove cards
-      for(int j=0; j<4;j++){
-	remove_card(target,card.rank[j][i]);
-      }
-      target.book[?++] = i;
-    }
-    
+  for(int i=0;i<book_size;i++){
+    printf("Player 1's Book - %d", temp.book[i]);
   }
+}
+
+char check_add_book(struct player* target){
 
 }
 
 int search(struct player* target, char rank){
 
-
+  struct player* temp;
+  temp = target;
+  while(temp.hand.top != NULL){
+ 
+    if(temp.hand.top.rank = rank)
+      return 1;
+    temp.hand.top = temp.hand.next;
+  }
+  return 0;
 }
 
 int transfer_cards(struct player* src, struct player* dest, char rank){
 
+  struct player* from;
+  from = src;
+  int count = 0;
 
+  while(from.hand.top != NULL){
+    if(from.hand.top == NULL)
+      return -1;
+    if(temp.hand.top.rank = rank){
+      add_card(dest,rank);
+      count++;
+    }
+    from.hand.top = from.hand.next;
+  }
+  return count;
+  
 }
 
 int game_over(struct player* target){
 
+  if(target.book[7] != NULL)
+    return 1;
+  else
+    return 0;
 
 }
 
