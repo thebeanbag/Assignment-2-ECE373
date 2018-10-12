@@ -14,7 +14,7 @@ struct deck {
   struct card list[52];
   int top_card;
 };
-
+//int deck_length=sizeof(list)/sizeof(struct card);
 /* 
  * Variable: deck_instance
  * -----------------------
