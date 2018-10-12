@@ -1,25 +1,27 @@
 #include "player.h"
 
+char cardArray[13] = {'2','3','4','5','6','7','8','9','10','J','Q','K','A'};
+
 int add_card(struct player* target, struct card* new_card){
 
    /* Allocate space for new element */
    struct player* temp;  
-   temp = (struct player.hand*)malloc(sizeof(struct player.hand));
+   temp = (struct player.card_list*)malloc(sizeof(struct player.card_list));
    if (temp == NULL) { return -1; }
 
    /* Initialize new element */
-   temp.hand.top = new_card;
-   temp.hand.next = target.hand.top;
+   temp.card_list.top = new_card;
+   temp.card_list.next = target.card_list.top;
    
    /* Set list to temp, the new front of list*/
-   target.hand = temp.hand;
-   target.hand.size++;
+   target.card_list = temp.card_list;
+   target.card_list.size++;
    return 0;
 }
 
 int remove_card(struct player* target, struct card* old_card){
 
-  struct player* iterator = target.hand;
+  struct player* iterator = target.card_list;
   struct player* previous = NULL; 
  
 
@@ -38,7 +40,7 @@ int remove_card(struct player* target, struct card* old_card){
     if (previous != NULL) 
        previous.next = iterator.next;	/* Remove item from list*/
     else {  
-       target.hand = iterator.next;         /* Set new front of list */
+       target.card_list = iterator.next;         /* Set new front of list */
        
     }
     /* Free memory of item we are removing */
@@ -47,13 +49,13 @@ int remove_card(struct player* target, struct card* old_card){
   
 }
 
-void print_hand(struct player* target) {
+void print_card_list(struct player* target) {
      struct player* temp;
      int a = temp.player_number;
      temp = target;
      while (temp != NULL) {
-       printf("Player %d's Hand -  %d", a, temp.hand.top);
-       temp = temp.hand.next;
+       printf("Player %d's Card_List -  %d", a, temp.card_list.top);
+       temp = temp.card_list.next;
      }
 
 }
@@ -69,19 +71,42 @@ void print_book(struct player* target) {
 
 char check_add_book(struct player* target){
 
+  struct player* temp;
+  temp=target;
+  for(int i=0;i<13;i++){
+
+    int count = search(target,cardArray[i]);
+    if(count == 4){
+      for(int j = 0;j<4;j++){
+	remove_card(target,cardArray[i]);
+      }
+      target.book[book_size]=cardArray[i];
+      target.book_size++;
+    }
+
+  }
+
+  
+  
+  
 }
 
 int search(struct player* target, char rank){
 
   struct player* temp;
   temp = target;
-  while(temp.hand.top != NULL){
+  int count = 0;
+  while(temp.card_list.top != NULL){
  
-    if(temp.hand.top.rank[0] = rank)
-      return 1;
-    temp.hand.top = temp.hand.next;
+    if(temp.card_list.top.rank = rank){
+      count++;
+    }
+    temp.card_list.top = temp.card_list.next;
   }
-  return 0;
+  if(count>0)
+    return count;
+  else
+    return 0;
 }
 
 int transfer_cards(struct player* src, struct player* dest, char rank){
@@ -90,14 +115,14 @@ int transfer_cards(struct player* src, struct player* dest, char rank){
   from = src;
   int count = 0;
 
-  while(from.hand.top != NULL){
-    if(from.hand.top == NULL)
+  while(from.card_list.top != NULL){
+    if(from.card_list.top == NULL)
       return -1;
-    if(temp.hand.top.rank = rank){
+    if(temp.card_list.top.rank = rank){
       add_card(dest,rank);
       count++;
     }
-    from.hand.top = from.hand.next;
+    from.card_list.top = from.card_list.next;
   }
   return count;
   
